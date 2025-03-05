@@ -1,4 +1,3 @@
-// User.h
 #ifndef USER_H
 #define USER_H
 
@@ -19,10 +18,14 @@ public:
     virtual void displayInfo() const = 0;
     virtual void payFine() = 0;
 
-    // Defaulted virtual destructor
-    virtual ~User() = default;  // No need to define this explicitly in the cpp file
-
     virtual std::string getRole() const = 0;  // Virtual method to get the role
+
+    // Getter method for user name
+    std::string getName() const {
+        return name;
+    }
+
+    virtual ~User() = default;  // Virtual destructor
 };
 
 #endif

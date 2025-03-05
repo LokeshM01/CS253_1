@@ -1,0 +1,11 @@
+Student,Alice
+Faculty,Dr. Smith
+Librarian,Mr. Adams
+Student,Bob
+Faculty,Dr. Johnson
+Librarian,Mrs. Lee
+Student,Charlie
+Faculty,Dr. Brown
+Librarian,Mr. White
+Student,David
+Student,ll
