@@ -82,20 +82,43 @@ void Library::saveData() {
     } else {
         std::cout << "Failed to open users file for saving!" << std::endl;
     }
+
+    // Save transactions to a file
+    std::ofstream transactionFile("data/transactions.txt");
+    if (transactionFile.is_open()) {
+        for (const auto& transaction : transactions) {
+            auto borrowTime = std::chrono::system_clock::to_time_t(transaction.getBorrowDate());
+            transactionFile << transaction.getUser()->getName() << ","
+                            << transaction.getBook()->getTitle() << ","
+                            << std::ctime(&borrowTime) << std::endl;
+        }
+        transactionFile.close();
+    } else {
+        std::cout << "Failed to open transactions file for saving!" << std::endl;
+    }
+}
+
+void Library::recordTransaction(User* user, Book* book) {
+    Transaction transaction(user, book);
+    transactions.push_back(transaction);
+    book->borrowBook();  // Mark the book as borrowed
+}
+
+void Library::displayTransactions() const {
+    for (const auto& transaction : transactions) {
+        transaction.displayTransactionInfo();
+    }
 }
 
 // Load library data (books and users) from files
 void Library::loadData() {
     // Load books from a file
-    std::ifstream bookFile("books.txt");
-    std::string line;
+    std::ifstream bookFile("data/books.txt");
+    std::string line;  // Declare line for books
     if (bookFile.is_open()) {
-        while (getline(bookFile, line)) {
-            std::stringstream ss(line);
-            Book book("", "", "", 0, "");
-            if (Book::loadFromFile(bookFile, book)) {
-                books.push_back(book);
-            }
+        Book book("", "", "", 0, "");
+        while (Book::loadFromFile(bookFile, book)) {
+            books.push_back(book);
         }
         bookFile.close();
         std::cout << "Books data loaded successfully!" << std::endl;
@@ -103,11 +126,12 @@ void Library::loadData() {
         std::cout << "Failed to open books file for loading!" << std::endl;
     }
 
-    // Load users from a file (similar process as books)
-    std::ifstream userFile("users.txt");
+    // Load users from a file (use a different variable name for line)
+    std::ifstream userFile("data/users.txt");
+    std::string userLine;  // Use a different variable name for users
     if (userFile.is_open()) {
-        while (getline(userFile, line)) {
-            std::stringstream ss(line);
+        while (getline(userFile, userLine)) {
+            std::stringstream ss(userLine);
             std::string role, name;
             
             getline(ss, role, ',');
@@ -131,7 +155,47 @@ void Library::loadData() {
     } else {
         std::cout << "Failed to open users file for loading!" << std::endl;
     }
+
+    // Load transactions (use a different variable name for transactions)
+    std::ifstream transactionFile("data/transactions.txt");
+    std::string transactionLine;  // Use a different variable name for transactions
+    if (transactionFile.is_open()) {
+        while (std::getline(transactionFile, transactionLine)) {
+            std::stringstream ss(transactionLine);
+            std::string userName, bookTitle, borrowDateStr;
+            std::getline(ss, userName, ',');
+            std::getline(ss, bookTitle, ',');
+            std::getline(ss, borrowDateStr);
+
+            // Find the user and the book by their names and titles
+            User* user = nullptr;
+            Book* book = nullptr;
+            for (auto& u : users) {
+                if (u->getName() == userName) {
+                    user = u;
+                    break;
+                }
+            }
+            for (auto& b : books) {
+                if (b.getTitle() == bookTitle) {
+                    book = &b;
+                    break;
+                }
+            }
+
+            if (user && book) {
+                // Create the transaction from the file data
+                Transaction transaction(user, book);
+                transactions.push_back(transaction);
+            }
+        }
+        transactionFile.close();
+    } else {
+        std::cout << "Failed to open transactions file for loading!" << std::endl;
+    }
 }
+
+
 
 // Getter method to access books
 const std::vector<Book>& Library::getBooks() const {

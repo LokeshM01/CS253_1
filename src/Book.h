@@ -25,6 +25,7 @@ public:
     int getYear() const { return year; }
     std::string getIsbn() const { return isbn; }
     bool isAvailable() const { return available; }
+    
 
     // Set the availability status
     void borrowBook() {

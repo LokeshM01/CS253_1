@@ -2,10 +2,3 @@ C++ Primer,Lippman,Addison-Wesley,2012,9780321714114
 The Great Gatsby,F. Scott Fitzgerald,Scribner,1925,9780743273565
 1984,George Orwell,Secker & Warburg,1949,9780451524935
 To Kill a Mockingbird,Harper Lee,J.B. Lippincott & Co.,1960,9780061120084
-The Catcher in the Rye,J.D. Salinger,Little, Brown and Company,1951,9780316769488
-Moby Dick,Herman Melville,Harper & Brothers,1851,9781503280786
-Pride and Prejudice,Jane Austen,T. Egerton,1813,9780486295334
-The Lord of the Rings,J.R.R. Tolkien,Allen & Unwin,1954,9780261103252
-The Hobbit,J.R.R. Tolkien,George Allen & Unwin,1937,9780261103344
-Crime and Punishment,Fyodor Dostoevsky,The Russian Messenger,1866,9780140449136
-44,11,44,44,44

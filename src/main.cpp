@@ -28,28 +28,28 @@ int main() {
     // Load existing data when the program starts
     library.loadData();
 
-    library.addBook(Book("C++ Primer", "Lippman", "Addison-Wesley", 2012, "9780321714114"));
-    library.addBook(Book("The Great Gatsby", "F. Scott Fitzgerald", "Scribner", 1925, "9780743273565"));
-    library.addBook(Book("1984", "George Orwell", "Secker & Warburg", 1949, "9780451524935"));
-    library.addBook(Book("To Kill a Mockingbird", "Harper Lee", "J.B. Lippincott & Co.", 1960, "9780061120084"));
-    library.addBook(Book("The Catcher in the Rye", "J.D. Salinger", "Little, Brown and Company", 1951, "9780316769488"));
-    library.addBook(Book("Moby Dick", "Herman Melville", "Harper & Brothers", 1851, "9781503280786"));
-    library.addBook(Book("Pride and Prejudice", "Jane Austen", "T. Egerton", 1813, "9780486295334"));
-    library.addBook(Book("The Lord of the Rings", "J.R.R. Tolkien", "Allen & Unwin", 1954, "9780261103252"));
-    library.addBook(Book("The Hobbit", "J.R.R. Tolkien", "George Allen & Unwin", 1937, "9780261103344"));
-    library.addBook(Book("Crime and Punishment", "Fyodor Dostoevsky", "The Russian Messenger", 1866, "9780140449136"));
+    // library.addBook(Book("C++ Primer", "Lippman", "Addison-Wesley", 2012, "9780321714114"));
+    // library.addBook(Book("The Great Gatsby", "F. Scott Fitzgerald", "Scribner", 1925, "9780743273565"));
+    // library.addBook(Book("1984", "George Orwell", "Secker & Warburg", 1949, "9780451524935"));
+    // library.addBook(Book("To Kill a Mockingbird", "Harper Lee", "J.B. Lippincott & Co.", 1960, "9780061120084"));
+    // library.addBook(Book("The Catcher in the Rye", "J.D. Salinger", "Little, Brown and Company", 1951, "9780316769488"));
+    // library.addBook(Book("Moby Dick", "Herman Melville", "Harper & Brothers", 1851, "9781503280786"));
+    // library.addBook(Book("Pride and Prejudice", "Jane Austen", "T. Egerton", 1813, "9780486295334"));
+    // library.addBook(Book("The Lord of the Rings", "J.R.R. Tolkien", "Allen & Unwin", 1954, "9780261103252"));
+    // library.addBook(Book("The Hobbit", "J.R.R. Tolkien", "George Allen & Unwin", 1937, "9780261103344"));
+    // library.addBook(Book("Crime and Punishment", "Fyodor Dostoevsky", "The Russian Messenger", 1866, "9780140449136"));
 
-    // Adding 10 users to the library
-    library.addUser(new Student(1, "Alice"));
-    library.addUser(new Faculty(2, "Dr. Smith"));
-    library.addUser(new Librarian(3, "Mr. Adams"));
-    library.addUser(new Student(4, "Bob"));
-    library.addUser(new Faculty(5, "Dr. Johnson"));
-    library.addUser(new Librarian(6, "Mrs. Lee"));
-    library.addUser(new Student(7, "Charlie"));
-    library.addUser(new Faculty(8, "Dr. Brown"));
-    library.addUser(new Librarian(9, "Mr. White"));
-    library.addUser(new Student(10, "David"));
+    // // Adding 10 users to the library
+    // library.addUser(new Student(1, "Alice"));
+    // library.addUser(new Faculty(2, "Dr. Smith"));
+    // library.addUser(new Librarian(3, "Mr. Adams"));
+    // library.addUser(new Student(4, "Bob"));
+    // library.addUser(new Faculty(5, "Dr. Johnson"));
+    // library.addUser(new Librarian(6, "Mrs. Lee"));
+    // library.addUser(new Student(7, "Charlie"));
+    // library.addUser(new Faculty(8, "Dr. Brown"));
+    // library.addUser(new Librarian(9, "Mr. White"));
+    // library.addUser(new Student(10, "David"));
 
     int choice;
     bool exitFlag = false;
@@ -152,8 +152,8 @@ int main() {
                 bool found = false;
                 for (auto& book : library.getBooks()) {
                     if (book.getTitle() == title && book.isAvailable()) {
-                        currentUser->borrowBook();  // Call the borrowBook() method of the current user
-                        book.borrowBook();  // Call the borrowBook() method for the book
+                        // Record the transaction and update book availability
+                        library.recordTransaction(currentUser, &book);  
                         found = true;
                         std::cout << "Book borrowed successfully!\n";
                         break;

@@ -5,12 +5,13 @@
 #include <string>
 #include "Book.h"
 #include "User.h"
+#include "Transaction.h"
 
 class Library {
 private:
     std::vector<Book> books;
     std::vector<User*> users;  // List of users in the library
-
+    std::vector<Transaction> transactions;
 public:
     Library();
     void addBook(const Book& book);
@@ -21,6 +22,8 @@ public:
     void displayUsers() const;
     void saveData();
     void loadData();
+    void recordTransaction(User* user, Book* book);
+    void displayTransactions() const;
 
     // Getter methods for books and users
     const std::vector<Book>& getBooks() const;
