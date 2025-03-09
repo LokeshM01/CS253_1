@@ -1,4 +1,4 @@
-#Steps to Compile and Run the Program
+# Steps to Compile and Run the Program
 
 1. **Navigate to the Project Directory:**
     ```bash
