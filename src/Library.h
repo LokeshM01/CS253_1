@@ -26,8 +26,8 @@ public:
     void recordTransaction(User* user, Book* book);
     void displayTransactions() const;
 
-    // Update the returnBook function declaration (remove overdueDays parameter)
-    void returnBook(User* user, Book* book);
+    // Update the returnBook function declaration to return a bool
+    bool returnBook(User* user, Book* book);
 
     // Getter methods for books and users
     const std::vector<Book>& getBooks() const;

@@ -196,7 +196,7 @@ void Library::loadData() {
     }
 }
 
-void Library::returnBook(User* user, Book* book) {
+bool Library::returnBook(User* user, Book* book) {
     // Find the transaction for the book being returned
     Transaction* transaction = nullptr;
     for (auto& t : transactions) {
@@ -208,7 +208,7 @@ void Library::returnBook(User* user, Book* book) {
 
     if (transaction == nullptr) {
         std::cout << "Transaction not found! This book was not borrowed by the user." << std::endl;
-        return;
+        return false;
     }
 
     // Calculate overdue days
@@ -231,7 +231,13 @@ void Library::returnBook(User* user, Book* book) {
         std::cout << "Book returned on time. No fine incurred." << std::endl;
     }
 
-    // Update the book status
+    // If there is a fine, do not return the book and ask the user to pay the fine
+    if (fine > 0) {
+        std::cout << "Please pay the fine first to return the book." << std::endl;
+        return false;  // Indicate that the book was not returned
+    }
+
+    // If no fine, return the book
     book->returnBook();
 
     // Update the user's account
@@ -242,8 +248,10 @@ void Library::returnBook(User* user, Book* book) {
     if (it != transactions.end()) {
         transactions.erase(it, transactions.end());
         std::cout << "Book returned successfully!" << std::endl;
+        return true;  // Indicate that the book was returned successfully
     } else {
         std::cout << "Error: Transaction not found!" << std::endl;
+        return false;
     }
 }
 

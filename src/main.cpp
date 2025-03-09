@@ -181,7 +181,27 @@ int main() {
                 bool found = false;
                 for (auto& book : library.getBooks()) {
                     if (book.getTitle() == title) {
-                        library.returnBook(currentUser, &book);  // Return the book
+                        // Try to return the book
+                        bool returned = library.returnBook(currentUser, &book);
+                        if (!returned) {
+                            // If the book was not returned due to a fine, prompt the user to pay the fine
+                            std::cout << "You have an outstanding fine. Please pay the fine to return the book.\n";
+                            std::cout << "Do you want to pay the fine now? (yes/no): ";
+                            std::string response;
+                            std::cin >> response;
+                            if (response == "yes") {
+                                currentUser->payFine();  // Pay the fine
+                                std::cout << "Fine paid. Attempting to return the book again...\n";
+                                returned = library.returnBook(currentUser, &book);  // Retry returning the book
+                                if (returned) {
+                                    std::cout << "Book returned successfully after paying the fine.\n";
+                                } else {
+                                    std::cout << "Failed to return the book.\n";
+                                }
+                            } else {
+                                std::cout << "Fine not paid. Book cannot be returned.\n";
+                            }
+                        }
                         found = true;
                         break;
                     }
