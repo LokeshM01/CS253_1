@@ -1,4 +1,3 @@
-//Faculty.cpp
 #include "Faculty.h"
 #include <iostream>
 

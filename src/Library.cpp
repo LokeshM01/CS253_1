@@ -196,6 +196,26 @@ void Library::loadData() {
     }
 }
 
+void Library::returnBook(User* user, Book* book, int overdueDays) {
+    // Update the book status
+    book->returnBook();
+
+    // Update the user's account
+    user->returnBook(overdueDays);
+
+    // Create a temporary Transaction object for comparison
+    Transaction tempTransaction(user, book);
+
+    // Remove the transaction from the list
+    auto it = std::remove(transactions.begin(), transactions.end(), tempTransaction);
+    if (it != transactions.end()) {
+        transactions.erase(it, transactions.end());
+        std::cout << "Book returned successfully!" << std::endl;
+    } else {
+        std::cout << "Transaction not found!" << std::endl;
+    }
+}
+
 
 
 // Getter method to access books

@@ -1,4 +1,3 @@
-//Library.h
 #ifndef LIBRARY_H
 #define LIBRARY_H
 
@@ -13,6 +12,7 @@ private:
     std::vector<Book> books;
     std::vector<User*> users;  // List of users in the library
     std::vector<Transaction> transactions;
+
 public:
     Library();
     void addBook(const Book& book);
@@ -25,6 +25,9 @@ public:
     void loadData();
     void recordTransaction(User* user, Book* book);
     void displayTransactions() const;
+
+    // Add the returnBook method declaration
+    void returnBook(User* user, Book* book, int overdueDays);
 
     // Getter methods for books and users
     const std::vector<Book>& getBooks() const;

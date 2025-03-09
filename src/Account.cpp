@@ -1,4 +1,3 @@
-//Account.cpp
 #include "Account.h"
 #include <algorithm>  // for std::find
 
@@ -33,4 +32,8 @@ void Account::payFine() {
 
 void Account::displayAccountInfo() const {
     std::cout << "Total fine: " << fineAmount << " rupees." << std::endl;
+    std::cout << "Currently borrowed books: " << borrowedBooks.size() << std::endl;
+    for (const auto& book : borrowedBooks) {
+        std::cout << " - " << book->getTitle() << std::endl;
+    }
 }

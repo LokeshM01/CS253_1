@@ -1,5 +1,3 @@
-//Transaction.h
-
 #ifndef TRANSACTION_H
 #define TRANSACTION_H
 
@@ -26,6 +24,11 @@ public:
         auto borrowTime = std::chrono::system_clock::to_time_t(borrowDate);
         std::cout << "User: " << user->getName() << " borrowed \""
                   << book->getTitle() << "\" on " << std::ctime(&borrowTime);
+    }
+
+    // Define the equality operator
+    bool operator==(const Transaction& other) const {
+        return user == other.user && book == other.book;
     }
 };
 

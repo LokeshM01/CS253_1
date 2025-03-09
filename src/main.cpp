@@ -181,10 +181,12 @@ int main() {
                 bool found = false;
                 for (auto& book : library.getBooks()) {
                     if (book.getTitle() == title) {
-                        currentUser->returnBook(5);  // 5 days overdue, example
-                        book.returnBook();  // Call returnBook() for the book
+                        int overdueDays;
+                        std::cout << "Enter the number of days overdue: ";
+                        std::cin >> overdueDays;
+                        
+                        library.returnBook(currentUser, &book, overdueDays);  // Return the book
                         found = true;
-                        std::cout << "Book returned successfully!\n";
                         break;
                     }
                 }
