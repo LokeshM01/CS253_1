@@ -8,5 +8,4 @@ Student,Charlie
 Faculty,Dr. Brown
 Librarian,Mr. White
 Student,David
-Student,ll
-Faculty,66
+
