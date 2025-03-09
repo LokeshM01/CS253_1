@@ -100,9 +100,23 @@ void Library::saveData() {
 }
 
 void Library::recordTransaction(User* user, Book* book) {
+    // Check if the user has already borrowed the maximum number of books
+    if (user->getBorrowedBooksCount() >= 3) {
+        std::cout << "You have already borrowed the maximum number of books (3).\n";
+        return;
+    }
+
+    // Record the transaction
     Transaction transaction(user, book);
     transactions.push_back(transaction);
-    book->borrowBook();  // Mark the book as borrowed
+
+    // Mark the book as borrowed
+    book->borrowBook();
+
+    // Increment the user's borrowed books count
+    user->incrementBorrowedBooksCount();
+
+    std::cout << "Book borrowed successfully!\n";
 }
 
 void Library::displayTransactions() const {
@@ -242,6 +256,9 @@ bool Library::returnBook(User* user, Book* book) {
 
     // Update the user's account
     user->returnBook(overdueDays);
+
+    // Decrement the user's borrowed books count
+    user->decrementBorrowedBooksCount();
 
     // Remove the transaction from the list
     auto it = std::remove(transactions.begin(), transactions.end(), *transaction);

@@ -156,7 +156,7 @@ int main() {
                         // Record the transaction and update book availability
                         library.recordTransaction(currentUser, &book);  
                         found = true;
-                        std::cout << "Book borrowed successfully!\n";
+                        // std::cout << "Book borrowed successfully!\n";
                         break;
                     }
                 }

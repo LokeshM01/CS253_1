@@ -9,9 +9,10 @@ protected:
     int userId;
     std::string name;
     int fineAmount;  // To track fines (if any)
+    int borrowedBooksCount;  // To track the number of books borrowed
 
 public:
-    User(int id, std::string n) : userId(id), name(n), fineAmount(0) {}
+    User(int id, std::string n) : userId(id), name(n), fineAmount(0), borrowedBooksCount(0) {}
 
     virtual void borrowBook() = 0;  
     virtual void returnBook(int overdueDays) = 0;  
@@ -33,6 +34,23 @@ public:
     // Get the current fine amount
     int getFineAmount() const {
         return fineAmount;
+    }
+
+    // Get the number of books borrowed
+    int getBorrowedBooksCount() const {
+        return borrowedBooksCount;
+    }
+
+    // Increment the borrowed books count
+    void incrementBorrowedBooksCount() {
+        borrowedBooksCount++;
+    }
+
+    // Decrement the borrowed books count
+    void decrementBorrowedBooksCount() {
+        if (borrowedBooksCount > 0) {
+            borrowedBooksCount--;
+        }
     }
 
     virtual ~User() = default;  // Virtual destructor
