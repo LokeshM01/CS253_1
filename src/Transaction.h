@@ -20,6 +20,14 @@ public:
     Book* getBook() const { return book; }
     std::chrono::system_clock::time_point getBorrowDate() const { return borrowDate; }
 
+    // Calculate the number of overdue days
+    int calculateOverdueDays() const {
+        auto now = std::chrono::system_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::hours>(now - borrowDate);
+        int days = duration.count() / 24;  // Convert hours to days
+        return days;
+    }
+
     void displayTransactionInfo() const {
         auto borrowTime = std::chrono::system_clock::to_time_t(borrowDate);
         std::cout << "User: " << user->getName() << " borrowed \""

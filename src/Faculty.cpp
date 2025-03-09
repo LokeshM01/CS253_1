@@ -7,7 +7,7 @@ void Faculty::borrowBook() {
 
 void Faculty::returnBook(int overdueDays) {
     std::cout << name << " is returning a book." << std::endl;
-    if (overdueDays > 0) {
+    if (overdueDays > 30) {
         std::cout << "Faculty members do not incur fines for overdue books.\n";
     }
 }

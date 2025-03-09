@@ -26,8 +26,8 @@ public:
     void recordTransaction(User* user, Book* book);
     void displayTransactions() const;
 
-    // Add the returnBook method declaration
-    void returnBook(User* user, Book* book, int overdueDays);
+    // Update the returnBook function declaration (remove overdueDays parameter)
+    void returnBook(User* user, Book* book);
 
     // Getter methods for books and users
     const std::vector<Book>& getBooks() const;

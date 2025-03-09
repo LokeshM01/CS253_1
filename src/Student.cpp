@@ -7,8 +7,10 @@ void Student::borrowBook() {
 
 void Student::returnBook(int overdueDays) {
     std::cout << name << " is returning a book." << std::endl;
-    if (overdueDays > 0) {
-        std::cout << "Fine for overdue: " << overdueDays * 10 << " rupees." << std::endl;
+    if (overdueDays > 15) {
+        int fine = (overdueDays - 15) * 10;  // 10 rupees per day
+        addFine(fine);
+        std::cout << "Fine for overdue: " << fine << " rupees." << std::endl;
     }
 }
 

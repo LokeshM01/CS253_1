@@ -196,26 +196,56 @@ void Library::loadData() {
     }
 }
 
-void Library::returnBook(User* user, Book* book, int overdueDays) {
+void Library::returnBook(User* user, Book* book) {
+    // Find the transaction for the book being returned
+    Transaction* transaction = nullptr;
+    for (auto& t : transactions) {
+        if (t.getUser() == user && t.getBook() == book) {
+            transaction = &t;
+            break;
+        }
+    }
+
+    if (transaction == nullptr) {
+        std::cout << "Transaction not found! This book was not borrowed by the user." << std::endl;
+        return;
+    }
+
+    // Calculate overdue days
+    int overdueDays = transaction->calculateOverdueDays();
+
+    // Determine the maximum allowed borrowing period based on the user's role
+    int maxBorrowingPeriod = 0;
+    if (user->getRole() == "Student") {
+        maxBorrowingPeriod = 15;
+    } else if (user->getRole() == "Faculty") {
+        maxBorrowingPeriod = 30;
+    }
+
+    // Calculate fines if the book is overdue
+    int fine = 0;
+    if (overdueDays > maxBorrowingPeriod) {
+        fine = (overdueDays - maxBorrowingPeriod) * 10;  // 10 rupees per day
+        std::cout << "Book is overdue by " << (overdueDays - maxBorrowingPeriod) << " days. Fine: " << fine << " rupees." << std::endl;
+    } else {
+        std::cout << "Book returned on time. No fine incurred." << std::endl;
+    }
+
     // Update the book status
     book->returnBook();
 
     // Update the user's account
     user->returnBook(overdueDays);
 
-    // Create a temporary Transaction object for comparison
-    Transaction tempTransaction(user, book);
-
     // Remove the transaction from the list
-    auto it = std::remove(transactions.begin(), transactions.end(), tempTransaction);
+    auto it = std::remove(transactions.begin(), transactions.end(), *transaction);
     if (it != transactions.end()) {
         transactions.erase(it, transactions.end());
         std::cout << "Book returned successfully!" << std::endl;
     } else {
-        std::cout << "Transaction not found!" << std::endl;
+        std::cout << "Error: Transaction not found!" << std::endl;
     }
 }
-
 
 
 // Getter method to access books

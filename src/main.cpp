@@ -181,11 +181,7 @@ int main() {
                 bool found = false;
                 for (auto& book : library.getBooks()) {
                     if (book.getTitle() == title) {
-                        int overdueDays;
-                        std::cout << "Enter the number of days overdue: ";
-                        std::cin >> overdueDays;
-                        
-                        library.returnBook(currentUser, &book, overdueDays);  // Return the book
+                        library.returnBook(currentUser, &book);  // Return the book
                         found = true;
                         break;
                     }
@@ -195,7 +191,6 @@ int main() {
                 }
                 break;
             }
-
             case 9: {
                 // Pay Fine (for student only)
                 if (currentUser == nullptr) {

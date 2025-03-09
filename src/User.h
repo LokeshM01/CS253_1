@@ -1,4 +1,3 @@
-//User.h
 #ifndef USER_H
 #define USER_H
 
@@ -24,6 +23,16 @@ public:
     // Getter method for user name
     std::string getName() const {
         return name;
+    }
+
+    // Add a fine to the user's account
+    void addFine(int amount) {
+        fineAmount += amount;
+    }
+
+    // Get the current fine amount
+    int getFineAmount() const {
+        return fineAmount;
     }
 
     virtual ~User() = default;  // Virtual destructor
